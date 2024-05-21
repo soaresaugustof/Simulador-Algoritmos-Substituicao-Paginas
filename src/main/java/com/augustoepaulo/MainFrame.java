@@ -44,13 +44,23 @@ public class MainFrame extends JFrame {
             // Executar o simulador aqui
             int[] pages = parsePages(pagesText);
             int capacity = Integer.parseInt(capacityText);
-            // Chamar o simulador com as páginas e a capacidade
+
+
+            FIFO fifo = new FIFO(capacity);
+            LRU lru = new LRU(capacity);
+            Clock clock = new Clock(capacity);
+            Otimo otimo = new Otimo(capacity);
+
+            fifo.pageReplacement(pages);
+            lru.pageReplacement(pages);
+            clock.pageReplacement(pages);
+            otimo.pageReplacement(pages);
 
             // Exibir os resultados em uma caixa de mensagem
-            int fifoFaults = 0; // Substitua com o número real de falhas do FIFO
-            int lruFaults = 0; // Substitua com o número real de falhas do LRU
-            int clockFaults = 0; // Substitua com o número real de falhas do Clock
-            int optimalFaults = 0; // Substitua com o número real de falhas do Ótimo
+            int fifoFaults = fifo.getPageFaults(); // Substitua com o número real de falhas do FIFO
+            int lruFaults = lru.getPageFaults(); // Substitua com o número real de falhas do LRU
+            int clockFaults = clock.getPageFaults(); // Substitua com o número real de falhas do Clock
+            int optimalFaults = otimo.getPageFaults(); // Substitua com o número real de falhas do Ótimo
 
             String message = "Resultados do Simulador:\n\n" +
                     "FIFO: " + fifoFaults + " faltas de página\n" +
